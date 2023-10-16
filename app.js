@@ -21,8 +21,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const campgroundRoutes = require("./routes/campground");
 const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
-// This for production mode
-// const dbUrl = process.env.DB_URL;
+
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
 
 main().catch((err) => console.log(err));
@@ -118,9 +117,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-  // console.log(req.session);
-  // console.log("********");
-  // console.log(req.query);
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
